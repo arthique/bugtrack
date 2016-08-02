@@ -1,22 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 	<title>Bugtrack</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="lib/css/bootstrap.css" />
+	<link rel="stylesheet" href="libs/css/style.css" />	
+	<script type="text/javascript" src="libs/js/modernizr-2.8.3.min.js"></script>
+	<script type="text/javascript" src="libs/js/l10n.js"></script>
+	<script>
+	   	WebFontConfig = {
+	    	custom: {
+		    	families: ['Roboto:regular,bold,bolditalic,light,lightitalic'],
+		    	urls: ['libs/css/fonts.css']
+			}
+	    };
+		(function(d) {
+		  var wf = d.createElement('script'), s = d.scripts[0];
+		  wf.src = 'libs/js/webfont.js';
+		  s.parentNode.insertBefore(wf, s);
+		})(document);
+	</script>
+	<link rel="resource" type="application/l10n" href="translate/translate.ini" />
 </head>
 <body>
-	<header class="header" role="header">
-	    
-	</header>
-	<main class="content" role="main">
-	    
-	</main>
+    <div class="row page">
+        <div class="panel panel-left">
+            <header class="header">
+                <h1 class="header__title">Bugtrack</h1>
+            </header>
+            <p data-l10n-id="welcome" data-l10n-args='{ "user": "Tom" }'>Welcome!</p>
+        </div>
+        <div class="panel panel-right">
+            <main class="content" id="content"></main>
+            
+        </div>
+    </div>
 	<footer class="footer" role="footer">
 	    
 	</footer>
-	<script src="js/common.js"></script>
-	<script src="js/app.js"></script>
+	<script src="libs/js/common.js"></script>
+	<script src="libs/js/app.js"></script>
+	<script type="text/template" id="tpl-menu">
+        <ul>
+            <li><a href="#">List</a></li>
+            <li><a href="#archive">Archive</a></li>
+            <li class="right"><a href="#new">+</a></li>
+        </ul>
+    </script>
+    <script type="text/template" id="tpl-list-item">
+        <li class="cf done-<%= done %>" data-index="<%= index %>">
+            <h2>
+                <input type="checkbox" data-status <%= doneChecked %> />
+                <a href="javascript:void(0);" data-up>&#8593;</a>
+                <a href="javascript:void(0);" data-down>&#8595;</a>
+                <%= title %>
+            </h2>
+            <div class="options">
+                <a href="#edit/<%= index %>">edit</a>
+                <a href="javascript:void(0);" data-archive><%= archiveLink %></a>
+                <a href="#delete/<%= index %>">delete</a>
+            </div>
+        </li>
+    </script>
 </body>
 </html>
