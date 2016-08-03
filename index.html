@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
 	<title>Bugtrack</title>
 	<meta charset="utf-8" />
@@ -20,15 +20,21 @@
 		  s.parentNode.insertBefore(wf, s);
 		})(document);
 	</script>
-	<link rel="resource" type="application/l10n" href="translate/translate.ini" />
+	<link rel="prefetch" type="application/l10n" href="locales.ini" />
 </head>
 <body>
     <div class="row page">
         <div class="panel panel-left">
             <header class="header">
                 <h1 class="header__title">Bugtrack</h1>
+                <p data-l10n-id="welcome" data-l10n-args='{ "user": "Tom" }'>Welcome!</p>
             </header>
-            <p data-l10n-id="welcome" data-l10n-args='{ "user": "Tom" }'>Welcome!</p>
+            <nav class="menu" id="menu"></nav>
+            <span data-l10n-id="langSelection">Language selection</span>
+            <select id="lang">
+              <option value="en" selected>English</option>
+              <option value="ru">Russian</option>
+            </select>
         </div>
         <div class="panel panel-right">
             <main class="content" id="content"></main>
@@ -62,5 +68,12 @@
             </div>
         </li>
     </script>
+    <script type="text/template" id="tpl-form">
+        <form>
+            <textarea><%= title %></textarea>
+            <button>save</button>
+        </form>
+    </script>
+    
 </body>
 </html>
