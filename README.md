@@ -1,5 +1,4 @@
 #Bugtrack
------------
 Bugtrack is prototype of bug tracking system for software testing.
 
 ## Functionality
