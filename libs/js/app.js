@@ -10,7 +10,9 @@ var app = (function () {
         init: function () {
             this.content = $("#content");
             this.issues = new api.collections.issues();
-            //ViewsFactory.menu();
+            this.messages = new api.collections.messages();
+            ViewsFactory.login();
+            document.webL10n.ready(app.ui.localize);
             return this;
         },
         changeContent: function(el) {
@@ -23,14 +25,14 @@ var app = (function () {
         }
     };
     var ViewsFactory = {
-        menu: function() {
-            if(!this.menuView) {
-                this.menuView = new api.views.menu({ 
-                    el: $("#menu")
+        login: function() {
+            if(!this.loginView) {
+                this.loginView = new api.views.login({ 
+                    el: $("#login")
                 });
             }
-            return this.menuView;
-        },
+            return this.loginView;
+        },        
         list: function(archive) {
             var view = ViewsFactory.list();
             api.title(archive ? "Archive:" : "Your ToDos:").changeContent(view.$el);
@@ -88,15 +90,76 @@ var app = (function () {
 })();
 
 (function (){
-//    app.views.menu = Backbone.View.extend({
-//        template: _.template($("#tpl-menu").html()),
-//        initialize: function() {
-//            this.render();
-//        },
-//        render: function(){
-//            this.$el.html(this.template({}));
-//        }
-//    });
+    app.models.message = Backbone.Model.extend({
+        defaults: {
+            status: '',
+            message: ''
+        }
+    });
+    
+    app.collections.messages = Backbone.Collection.extend({
+        model: app.models.message,
+        initialize: function () {
+            this.on('add', function(model, collection) {
+                console.log('add');
+                var msg = new app.views.message({model: model, collection: app.messages}).render();
+                $(document.body).append(msg);
+            });
+        }
+    });
+    
+    app.views.message = Backbone.View.extend({
+        template: 'message',
+        initialize: function() {
+            this.render();
+        },
+        render: function(){
+            var that = this;
+            function getTemplate(handleData,that) {
+                $.get("templates/" + that.template + ".html", function(template){
+                    handleData(template);
+                });
+            }
+            var tmpl = getTemplate(function(output){
+                var strTmpl = _.template(output);
+                    strTmpl = strTmpl(app.messages.models[0].attributes);
+                return app.ui.translate(strTmpl);
+            },that);
+            return tmpl;    
+        }
+    });
+})(app);
+
+(function (){
+    app.views.login = Backbone.View.extend({
+        template: 'login',
+        events: {
+            'submit #loginForm': 'userLogin'
+        },
+        userLogin: function(e) {
+            e.preventDefault();
+            var form = $(e.target);
+            var url = form.attr('action');
+            var username = form.find('[name="userLogin"]').val();
+            var userpass = form.find('[name="userPassword"]').val();
+            var params = { userLogin: username, userPassword: userpass }; 
+            if(username.length > 0 && userpass.length > 0) {
+                $.post(url, params, function(data){
+                    app.messages.add([data]);
+                },'json');
+                
+            }
+        },
+        initialize: function() {
+            this.render();
+        },
+        render: function(){
+            var that = this;
+            $.get("templates/" + this.template + ".html", function(template){
+                that.$el.html( _.template( app.ui.translate(template) ) );
+            });
+        }
+    });
 })(app);
 
 (function (){
@@ -165,9 +228,7 @@ var app = (function () {
             done: false
         }
     });
-})(app);
 
-(function (){
     app.collections.issues = Backbone.Collection.extend({
         initialize: function(){
             this.add({ title: "Learn JavaScript basics" });
@@ -242,24 +303,35 @@ var app = (function () {
     });
 })(app);
 
+    
+(function (){
+    app.ui = {
+        l10n: document.webL10n,
+        localize: function() {
+          var l10n = app.ui.l10n,
+              ui = {
+                lang: document.getElementById('lang')
+              };
+          ui.lang.value = (l10n.getLanguage().length > 2) ? l10n.getLanguage().substr(0,2) : l10n.getLanguage(); // not working with IE<9
+          ui.lang.onchange = function() {
+            l10n.setLanguage(this.value);
 
-
-
+          };
+        },
+        // Translator for html templates
+        translate: function (str){
+            if(typeof str == 'string'){
+                var tmpl = $(str).clone(true);
+                app.ui.l10n.translate(tmpl[0]);
+                tmpl = $('<div>').append(tmpl).html();
+                return tmpl;
+            }
+        }
+    };
+    
+})(app);
 
 window.onload = function() {
     app.init();
-    document.webL10n.ready(onLocalized);
-    function onLocalized() {
-      var l10n = document.webL10n,
-          textProp = document.body.textContent ? 'textContent' : 'innerText',
-          ui = {
-            lang: document.getElementById('lang')
-          };
-      ui.lang.value = (l10n.getLanguage().length > 2) ? l10n.getLanguage().substr(0,2) : l10n.getLanguage(); // not working with IE<9
-      ui.lang.onchange = function() {
-        l10n.setLanguage(this.value);
-          
-      };
-    }
 };
 

@@ -26,7 +26,7 @@
             <cfset ArrayAppend(returnArray, issueStructure)>
         </cfloop>
         
-        <cfreturn SerializeJSON(returnArray)>
+        <cfreturn writeOutput(serializeJSON(returnArray))>
     </cffunction>
     
     <cffunction name="newIssue" access="remote" returntype="void" output="false">

@@ -1,0 +1,38 @@
+$fontFamilyRoboto: 'Roboto',Helvetica,Sans-serif;
+$fontFamilyRobotoLight: 'Roboto Light',Helvetica,Sans-serif;
+$fontFamilySerif: Times,Georgia,serif;
+$fontFamilyMono: Courier, Monaco, monospace;
+
+@mixin rootFlexSizeFont(){
+	:root { font-size: calc(1vw + 1vh + .25vmin); }
+}
+
+@mixin userNoSelect(){
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+@mixin transition($name, $duration, $tfunction, $delay){
+	-webkit-transition: $name $duration $tfunction $delay;
+	 -moz-transition: $name $duration $tfunction $delay;
+	   -o-transition: $name $duration $tfunction $delay;
+	  -ms-transition: $name $duration $tfunction $delay;
+	      transition: $name $duration $tfunction $delay;
+}
+
+$leftPanelwidth: 240px;
+
+
+$darkGrey: rgb(59,58,63);
+$lightGrey: rgb(241,241,241);
+$logoGray: rgb(209,210,212);
+$captionBgGrey: rgb(53,52,57);
+$captionGrey: rgb(121,121,125);
+$contentTextGrey: rgb(209,210,212);
+$contentTextActive: rgb(0,206,155);
+$buttonBlue: rgb(71,151,241);
+$fieldBorderGrey: rgb(225,225,227);

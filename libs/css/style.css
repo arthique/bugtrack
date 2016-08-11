@@ -52,14 +52,6 @@ table {
 body {
   font: 1em/1 "Roboto", Helvetica, Sans-serif; }
 
-.page {
-  width: 100%;
-  min-width: 640px;
-  position: relative; }
-
-.header {
-  overflow: hidden; }
-
 .row {
   display: flex;
   flex-direction: row;
@@ -99,33 +91,24 @@ body {
   display: block;
   text-decoration: none;
   cursor: pointer;
+  padding: 10px 11px;
+  border-radius: 3px;
+  font-weight: bold;
+  color: white;
+  background-color: #4797f1;
   user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
   -webkit-touch-callout: none; }
-  .button.button_border_white {
-    font: bold 1.125em/1.313em "Roboto", Helvetica, Sans-serif;
-    color: #FFF;
-    padding: 22px 80px;
-    border: 2px solid #fff;
-    -webkit-border-radius: 2px;
-    border-radius: 2px; }
-  .button.button_app {
-    display: inline-block;
-    margin-right: 10px;
-    height: 39px; }
-    .button.button_app.button_app_apple {
-      width: 112px;
-      background: url("../images/icon-app-apple.png") no-repeat center; }
-    .button.button_app.button_app_google {
-      width: 120px;
-      background: url("../images/icon-app-google.png") no-repeat center; }
 
 .page {
   width: 100%;
   height: 100%;
+  min-width: 640px;
+  position: relative;
+  flex-wrap: nowrap;
   margin-bottom: -100px; }
 
 .panel {
@@ -134,9 +117,78 @@ body {
   .panel.panel-left {
     width: 240px;
     background: #3b3a3f; }
+  .panel.panel-right {
+    background: #f1f1f1; }
+  .panel .wrapper {
+    margin-left: 20px; }
+
+.header .header__title {
+  padding: 20px 0;
+  font-size: 1.375em;
+  color: #d1d2d4;
+  letter-spacing: 0.03em; }
 
 .content {
   width: 100%; }
+
+.container {
+  width: 100%; }
+  .container .container__caption {
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 1.125em;
+    font-weight: bold;
+    background-color: #353439;
+    color: #79797d; }
+  .container .container__content {
+    color: #d1d2d4; }
+
+.login .login__form {
+  padding-left: 20px;
+  padding-right: 22px; }
+
+.login .login__label {
+  padding-top: 12px;
+  padding-bottom: 6px; }
+
+.login .login__field {
+  height: 25px;
+  width: 100%;
+  border: 1px solid #e1e1e3;
+  border-radius: 3px;
+  background-color: white; }
+
+.login .login__input {
+  border: 0;
+  outline: none;
+  width: 100%;
+  background-color: white;
+  line-height: 24px;
+  text-indent: 8px; }
+
+.login .login__submit {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  margin-left: auto;
+  margin-right: 0; }
+
+.login .login__username, .login .login__logout {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-decoration: none;
+  color: #d1d2d4; }
+
+.meta .meta__language {
+  padding-left: 20px;
+  padding-right: 22px;
+  padding-bottom: 12px; }
+  .meta .meta__language .language__caption {
+    padding-top: 12px;
+    padding-bottom: 6px; }
+  .meta .meta__language .language__select {
+    width: 100%;
+    height: 24px; }
 
 .get-started {
   position: relative;
